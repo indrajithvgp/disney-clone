@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import {useDispatch, useSelector} from 'react-redux'
 import {useHistory} from 'react-router-dom'
-import { auth, provider } from '../firebase'
+import { auth, provider, createUserProfileDoc} from '../firebase'
 import {selectUserName, selectUserEmail, selectUserPhoto,setSignOutState, setUserLoginDetails} from '../features/user/userSlice'
 
 
@@ -14,8 +14,10 @@ const Header = () => {
     const userEmail = useSelector(selectUserEmail)
     const userPhoto = useSelector(selectUserPhoto)
 
+
     useEffect(() => {
         auth.onAuthStateChanged(async(user)=>{
+            createUserProfileDoc(user)
             if(user){
                 setUser(user)
                 history.push('/home')
