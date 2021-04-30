@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import {useDispatch, useSelector} from 'react-redux'
-import {useHistory} from 'react-router-dom'
+import {useHistory, Link} from 'react-router-dom'
 import { auth, provider, createUserProfileDoc} from '../firebase'
 import {selectUserName, selectUserEmail, selectUserPhoto,setSignOutState, setUserLoginDetails} from '../features/user/userSlice'
 
@@ -60,9 +60,11 @@ const Header = () => {
 
     return (
         <Nav>
+        <Link to="/home">
             <Logo>
                 <img src="/images/logo.svg" alt="disney-logo"/>
             </Logo>
+            </Link>
             {!userName ? <Login onClick={handleAuth}>Log In</Login> : <> 
             
             <NavMenu>
@@ -109,7 +111,7 @@ const Nav = styled.nav`
     left:0;
     right:0;
     height:70px;
-    background:#090b13;
+    /* background:#090b13; */
     display:flex;
     justify-content:space-between;
     align-items:center;

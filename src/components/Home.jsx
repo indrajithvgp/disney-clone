@@ -23,7 +23,6 @@ const Home = () => {
     useEffect(()=>{
         db.collection('movies').onSnapshot(snapShot =>{
             snapShot.docs.map(doc => {
-                console.log(doc.data())
                 switch(doc.data().type){
                     case 'recommend':
                         recommends = [...recommends, { id: doc.id, ...doc.data() }];
