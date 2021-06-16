@@ -21,7 +21,7 @@ steps:
   displayName: 'npm install and build'
 - task: CopyFiles@2
   inputs:
-    Contents: '**/build'
+    Contents: '**/build/*'
     TargetFolder: '$(build.artifactstagingdirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
