@@ -19,7 +19,7 @@ steps:
     npm install
     npm run build
   displayName: 'npm install and build'
-- bash: ls $(System.DefaultWorkingDirectory)
+- bash: ls '$(System.DefaultWorkingDirectory)/build'
 - bash: ls $(Build.ArtifactStagingDirectory)
 - task: CopyFiles@2
   inputs:
@@ -28,10 +28,18 @@ steps:
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - bash: ls $(Build.ArtifactStagingDirectory)
-- bash: ls '$(Build.ArtifactStagingDirectory)'
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+- bash: ls $(Build.ArtifactStagingDirectory)
+
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/build'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
