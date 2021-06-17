@@ -23,7 +23,7 @@ steps:
 - bash: ls $(Build.ArtifactStagingDirectory)
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(System.DeafultWorkingDirectory)'
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
     Contents: '**/build/*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
