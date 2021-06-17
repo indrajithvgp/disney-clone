@@ -19,22 +19,28 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: |
-    pushd $(uiSource)
-    npm install
-    npm run build
-    popd 
-  displayName: 'npm install and build'
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(uiBuild)'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+- bash: echo $(Build.SourcesDirectory)
+- bash: echo $(Build.BuildId)
+- bash: echo $(Build.BuildNumber)
+- bash: echo $(Build.DefaultWorkingDirectory)
+- bash: echo $(Build.ArtifactStagingDirectory)
+
+# - script: |
+#     pushd $(uiSource)
+#     npm install
+#     npm run build
+#     popd 
+#   displayName: 'npm install and build'
+# - task: ArchiveFiles@2
+#   inputs:
+#     rootFolderOrFile: '$(uiBuild)'
+#     includeRootFolder: false
+#     archiveType: 'zip'
+#     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+#     replaceExistingArchive: true
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
 
