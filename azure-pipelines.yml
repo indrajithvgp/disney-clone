@@ -8,10 +8,6 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
-  
-variables:
-  uiSource: 'src'
-  uiBuild: '$(uiSource)/build'
 
 steps:
 - task: NodeTool@0
@@ -20,14 +16,19 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    pushd $(uiSource)
     npm install
     npm run build
-    popd 
   displayName: 'npm install and build'
 - bash: ls $(System.DefaultWorkingDirectory)
-- bash: echo $(Build.ArtifactStagingDirectory)
 - bash: ls $(Build.ArtifactStagingDirectory)
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DeafultWorkingDirectory)'
+    Contents: '**/build/*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- bash: ls $(Build.ArtifactStagingDirectory)
+- bash: ls '$(Build.ArtifactStagingDirectory)'
 
 # - task: ArchiveFiles@2
 #   inputs:
