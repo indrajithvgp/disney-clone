@@ -29,6 +29,11 @@ steps:
 
 - bash: ls $(Build.ArtifactStagingDirectory)
 - bash: ls '$(Build.ArtifactStagingDirectory)'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/build'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 
 # - task: ArchiveFiles@2
 #   inputs:
