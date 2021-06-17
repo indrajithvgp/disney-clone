@@ -22,15 +22,20 @@ steps:
 - bash: echo $(Build.SourcesDirectory)
 - bash: echo $(Build.BuildId)
 - bash: echo $(Build.BuildNumber)
-- bash: echo $(Build.DefaultWorkingDirectory)
+- bash: echo $(System.DefaultWorkingDirectory)
 - bash: echo $(Build.ArtifactStagingDirectory)
 
-# - script: |
-#     pushd $(uiSource)
-#     npm install
-#     npm run build
-#     popd 
-#   displayName: 'npm install and build'
+- script: |
+    pushd $(uiSource)
+    npm install
+    npm run build
+    popd 
+  displayName: 'npm install and build'
+- bash: echo $(Build.ArtifactStagingDirectory)
+- bash: ls -R $(Build.ArtifactStagingDirectory)
+- bash: ls -R $(System.DefaultWorkingDirectory)
+- bash: ls -R $(uiBuild)
+- bash: ls -R $(uiSource)
 # - task: ArchiveFiles@2
 #   inputs:
 #     rootFolderOrFile: '$(uiBuild)'
